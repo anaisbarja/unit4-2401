@@ -25,7 +25,7 @@ app.get("/hi", (req, res, next)=>{
 
 const apiRouter = require("./api")
 app.use("/api", apiRouter)
-
-app.listen(8080, ()=>{
+const port = 8000
+app.listen(port, ()=>{
     console.log("Server is up and running :)")
 })

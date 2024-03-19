@@ -23,16 +23,16 @@ async function createTables(){
             id serial primary key,
             username varchar(255),
             password varchar(255)
-        )
+        );
         `)
         await client.query(`
         create table orders(
-            id serial primary key,
+            id UUID primary key Default genrandomuuid(),
             item varchar(255),
             customerid integer references customers(id)
-        )
+        );
         `)
-        await client.query("drop table if exists orders")
+       // await client.query("drop table if exists orders")
     }catch(err){
         console.log("oh nose, failed dropping tables!", err)
     }
@@ -55,15 +55,14 @@ async function insertData(){
 async function rebuild(){
     try{
         client.connect()
-        await dropTables()
+      //  await dropTables()
         await createTables()
         await insertData()
-      
+
     }catch (error){
         console.log("Oh nose, failed rebuilding database", error)
     }
 }
-
 // async function runRebuild(){
 //     await rebuild
 //     client.end()
