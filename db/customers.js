@@ -32,13 +32,17 @@ async function getACustomer(id){
     }
 }
 
-async function getAllCustomers(id){
+async function getAllCustomers(){
     try{
-        const SQL = `
-        SELECT * FROM customers
-        `
-        const response = await client.query(SQL,[id])
-        console.log(response.rows)
+        // const SQL = `
+        // SELECT * FROM customers
+        // `
+        // const response = await client.query(SQL)
+        // console.log(response.rows)
+        // return response.rows
+
+        const {rows} = await client.query("SELECT * FROM customers")
+        return rows
     }catch(err){
         console.log("oh nose, failed creating customer everywher", err)
     }
