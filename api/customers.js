@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const bcrypt = require("bcrypt")
 // const customerFunctions = require('../db/customers')
-const {getAllCustomers} = require('../db')
+const {getAllCustomers, getCustomerbyUsername} = require('../db')
 
 
 router.get("/", async(req, res, next)=>{
@@ -19,6 +19,25 @@ router.get("/", async(req, res, next)=>{
     }
 })
  
+router.post("/login", async(req, res, next)=>{
+    try{
+        const {username, password} = req.body
+
+
+        const customer = await getCustomerbyUsername(username)
+
+        if(await bcrypt.compare(password, customer.password)){
+            res.send("token")
+        }else{
+            res.send("Invalid, username and password do not match")
+        }
+
+ 
+
+    }catch(err){
+        console.log("error! Oh nose, couldn't login" , err)
+    }
+})
 
 // router.post("/login/:id", async(req, res, next)=>{
 //     try{

@@ -32,6 +32,20 @@ async function getACustomer(id){
     }
 }
 
+async function getCustomerbyUsername(username){
+    try{
+        const SQL = `
+        SELECT * FROM customers
+        WHERE username = $1
+        `
+        const response = await client.query(SQL,[username])
+        console.log(response.rows[0])
+        return response.rows[0]
+    }catch(err){
+        console.log("oh nose, failed creating customer there", err)
+    }
+}
+
 async function getAllCustomers(){
     try{
         // const SQL = `
@@ -51,5 +65,6 @@ async function getAllCustomers(){
 module.exports = {
     createCustomer,
     getACustomer,
-    getAllCustomers
+    getAllCustomers,
+    getCustomerbyUsername
 }
