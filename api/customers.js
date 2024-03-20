@@ -22,14 +22,14 @@ router.get("/", async(req, res, next)=>{
 router.post("/login", async(req, res, next)=>{
     try{
         const {username, password} = req.body
-
+        console.log("user info", username, password)
 
         const customer = await getCustomerbyUsername(username)
 
         if(await bcrypt.compare(password, customer.password)){
-            res.send("token")
+            res.send({token:"token"})
         }else{
-            res.send("Invalid, username and password do not match")
+            res.send({token:"Invalid, username and password do not match"})
         }
 
  

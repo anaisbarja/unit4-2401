@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client'
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import React from 'react'
 
 function App(){
@@ -11,8 +11,9 @@ function App(){
     // const [username, setUsername] = useState("anais")
     // const [password, setPassword] = useState("pass123")
 
-    
+
     // fetch request to login
+    useEffect(()=>{login()})
     async function login(){
         try{
             const response = await fetch("http://localhost:8080/api/customers/login",
@@ -28,7 +29,7 @@ function App(){
             console.log("response", response)
             let result = await response.json()
             console.log("result", result)
-            setIsLoggedIn(result)
+            setIsLoggedIn(result.token)
             // setToken(result.token)
 
         }catch(err){
@@ -36,11 +37,11 @@ function App(){
         }
     }
 
-    login()
+    // login()
 
     return(
-        // <h1>{isLoggedIn}</h1>
-        <h1>hello</h1>
+        <h1>{isLoggedIn}</h1>
+        // <h1>hello</h1>
     )
 }
 
